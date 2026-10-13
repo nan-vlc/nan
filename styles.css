@@ -160,10 +160,12 @@ body {
     width: 100%;
     height: 100%;
     overflow-x: auto;
-    /* Esto hace que el deslizamiento se frene de foto en foto como un imán */
+    overflow-y: hidden; /* Fuerza el bloqueo de cualquier movimiento vertical interno */
     scroll-snap-type: x mandatory; 
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Oculta la barra en Firefox */
+    scrollbar-width: none;
+    /* Asegura que el rebote horizontal no congele el scroll vertical general */
+    overscroll-behavior-y: contain; 
 }
 
 /* Oculta la barra de scroll en Chrome/Safari/iOS */
