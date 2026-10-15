@@ -4,7 +4,7 @@ const catalog = [
     {
         id: 2,
         category: 'collares',
-        name: 'Chocker',
+        name: 'Chocker NaN',
         images: [
             'Chocker2.JPG',
             'Chocker.JPG'
@@ -13,7 +13,7 @@ const catalog = [
     {
         id: 3,
         category: 'collares',
-        name: 'Terreta',
+        name: 'NaN Terreta',
         images: [
             'Terreta.JPG'
         ]
@@ -21,7 +21,7 @@ const catalog = [
     {
         id: 3,
         category: 'collares',
-        name: 'Amalfi',
+        name: 'NaN Amalfi',
         images: [
             'Amalfi.JPG'
         ]
@@ -29,7 +29,7 @@ const catalog = [
     {
         id: 4,
         category: 'collares',
-        name: 'Capri',
+        name: 'NaN Capri',
         images: [
             'Capri.JPG'
         ]
@@ -37,7 +37,7 @@ const catalog = [
     {
         id: 5,
         category: 'collares',
-        name: 'Mango',
+        name: 'NaN Mango',
         images: [
             'Mango.JPG'
         ]
@@ -45,11 +45,27 @@ const catalog = [
     {
         id: 101,
         category: 'colgadores',
-        name: 'Trinity',
+        name: 'NaN Trinity',
         images: [
             'Trinity'
         ]
-    }
+    },
+   {
+        id: 102,
+        category: 'colgadores',
+        name: 'NaN Bolita',
+        images: [
+            'Bolita'
+        ]
+    },
+   {
+        id: 103,
+        category: 'colgadores',
+        name: 'NaN Medalla',
+        images: [
+            'Medalla'
+        ]
+    },
 ];
 
 // Estado de la aplicación
