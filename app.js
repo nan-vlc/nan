@@ -45,11 +45,9 @@ const catalog = [
     {
         id: 101,
         category: 'colgadores',
-        name: 'Colgador Nudo Simple',
+        name: 'Trinity',
         images: [
-            'https://images.unsplash.com/photo-1522272898950-891000bbd5d2?q=80&w=600&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1589136932408-59c5d19457a3?q=80&w=600&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1520698715781-6780c88de8af?q=80&w=600&auto=format&fit=crop'
+            'Trinity'
         ]
     }
 ];
