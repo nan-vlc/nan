@@ -47,7 +47,7 @@ const catalog = [
         category: 'colgadores',
         name: 'NaN Trinity',
         images: [
-            'Trinity'
+            'Trinity.JPG'
         ]
     },
    {
@@ -55,7 +55,7 @@ const catalog = [
         category: 'colgadores',
         name: 'NaN Bolita',
         images: [
-            'Bolita'
+            'Bolita.JPG'
         ]
     },
    {
@@ -63,7 +63,7 @@ const catalog = [
         category: 'colgadores',
         name: 'NaN Medalla',
         images: [
-            'Medalla'
+            'Medalla.JPG'
         ]
     },
 ];
