@@ -82,8 +82,8 @@ const catalog = [
         category: 'collares',
         name: 'Loop',
         images: [
-            'Lacito.JPG'
-            'Lacito 2.JPG'
+            'Lacito.JPG',
+            'Lacito 2.JPG',
             'Lacito 3.JPG'
         ]
     },
@@ -101,10 +101,10 @@ const catalog = [
         category: 'colgadores',
         name: 'NaN Bolita',
         images: [
-            'Bolita.JPG'
-            'Bolita 2.JPG'
-            'Bolita 3.JPG'
-            'Bolita 4.JPG'
+            'Bolita.JPG',
+            'Bolita 2.JPG',
+            'Bolita 3.JPG',
+            'Bolita 4.JPG',
             'Bolita 5.JPG'
         ]
     },
