@@ -9,7 +9,7 @@ const catalog = [
             'Mix & Match 1.JPG',
             'Mix & Match 2.JPG',
             'Mix & Match 3.JPG',
-            'Mix & Match 4.JPG',
+            'Mix & Match 4.JPG'
         ]
     },
     {
