@@ -87,6 +87,7 @@ const catalog = [
             'Lacito 3.JPG'
         ]
     },
+   
     {
         id: 101,
         category: 'colgadores',
