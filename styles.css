@@ -291,3 +291,28 @@ body {
     border-radius: 14px; /* Ahora el recorte recae directamente sobre la imagen visible */
     -webkit-user-drag: none;
 }
+/* --- PUNTITOS DEL VISOR A PANTALLA COMPLETA --- */
+.modal-dots {
+    position: absolute;
+    bottom: 40px; /* Separación perfecta desde el borde inferior */
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    z-index: 10000;
+    pointer-events: none; /* Evita que el usuario toque los puntos sin querer */
+}
+
+.modal-dots .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.15); /* Gris muy clarito */
+    transition: all 0.3s ease;
+}
+
+.modal-dots .dot.active {
+    background-color: #1d1d1f; /* Gris oscuro mate */
+    transform: scale(1.1);
+}
