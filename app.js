@@ -201,44 +201,45 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- LÓGICA DEL VISOR A PANTALLA COMPLETA ---
-const modal = document.getElementById('image-modal');
-const modalTrack = document.getElementById('modal-track');
-const closeModal = document.getElementById('close-modal');
-
-// Escuchar clics en las imágenes
-gridContainer.addEventListener('click', (e) => {
+document.addEventListener('click', (e) => {
+    // 1. Si tocamos una foto del catálogo
     if (e.target.classList.contains('product-image')) {
         const productId = parseInt(e.target.getAttribute('data-product-id'));
         const clickedIndex = parseInt(e.target.getAttribute('data-index'));
         
         const product = catalog.find(p => p.id === productId);
         if (product) {
-            openModal(product.images, clickedIndex);
+            const modal = document.getElementById('image-modal');
+            const modalTrack = document.getElementById('modal-track');
+            
+            if (!modal || !modalTrack) return; // Evita errores si falta el HTML
+            
+            // Inyectamos las fotos
+            modalTrack.innerHTML = product.images.map(img => `
+                <div class="modal-slide">
+                    <img src="${img}" alt="Producto ampliado">
+                </div>
+            `).join('');
+
+            // Mostramos el visor y bloqueamos la web de fondo
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            // Movemos el carrusel a la foto exacta que hemos tocado
+            setTimeout(() => {
+                modalTrack.scrollLeft = modalTrack.clientWidth * clickedIndex;
+            }, 10);
+        }
+    }
+
+    // 2. Si tocamos la "X" para cerrar
+    if (e.target.id === 'close-modal') {
+        const modal = document.getElementById('image-modal');
+        if (modal) {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
         }
     }
 });
 
-// Abrir el visor con TODAS las fotos de ese producto
-function openModal(images, startIndex) {
-    // Inyectar todas las fotos en grande para poder deslizar
-    modalTrack.innerHTML = images.map(img => `
-        <div class="modal-slide">
-            <img src="${img}" alt="Producto ampliado">
-        </div>
-    `).join('');
 
-    // Mostrar modal y bloquear el scroll de la web de fondo
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-
-    // Desplazar automáticamente hasta la foto que se tocó
-    setTimeout(() => {
-        modalTrack.scrollLeft = modalTrack.clientWidth * startIndex;
-    }, 10);
-}
-
-// Cerrar el visor
-closeModal.addEventListener('click', () => {
-    modal.classList.add('hidden');
-    document.body.style.overflow = ''; // Restaurar scroll web
-});
