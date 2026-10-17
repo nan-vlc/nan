@@ -146,6 +146,7 @@ body {
     user-select: none;
     -webkit-user-select: none;
     cursor: pointer;
+    border-radius: 12px;
 }
 
 .product-name {
@@ -228,22 +229,39 @@ body {
 
 .close-btn {
     position: absolute; 
-    top: 15px; 
-    right: 15px;
-    width: 36px; /* Ancho del círculo */
-    height: 36px; /* Alto del círculo */
-    border-radius: 50%; /* Lo convierte en un círculo perfecto */
-    background-color: rgba(0, 0, 0, 0.08); /* Fondo gris muy suave */
-    backdrop-filter: blur(10px); /* Efecto cristal de Apple */
+    top: 20px; 
+    right: 20px;
+    width: 32px; 
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(225, 225, 225, 0.7); /* Gris muy clarito y translúcido */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Soporte extra para Safari/iPhone */
     border: none; 
-    color: #1d1d1f;
-    font-size: 24px; 
+    cursor: pointer; 
+    z-index: 10000; 
     display: flex; 
     align-items: center; 
     justify-content: center;
-    cursor: pointer; 
-    z-index: 10000; 
     padding: 0;
+}
+/* Dibujamos la cruz con geometría (fina y perfecta) */
+.close-btn::before,
+.close-btn::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 1.5px; /* Grosor muy fino y elegante */
+    background-color: #1d1d1f; /* Gris oscuro mate (color texto Apple) */
+    border-radius: 2px;
+}
+
+.close-btn::before {
+    transform: rotate(45deg);
+}
+
+.close-btn::after {
+    transform: rotate(-45deg);
 }
 
 .modal-content {
@@ -267,4 +285,5 @@ body {
     width: 100%; height: 100%;
     object-fit: contain; /* Para que la foto se vea entera sin recortar */
     -webkit-user-drag: none;
+    border-radius: 12px;
 }
