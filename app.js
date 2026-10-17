@@ -205,48 +205,50 @@ const modalTrack = document.getElementById('modal-track');
 const modalDotsContainer = document.getElementById('modal-dots-container');
 
 document.addEventListener('click', (e) => {
-    // 1. Si tocamos una foto del catálogo
+    // 1. Abrir visor al tocar foto
     if (e.target.classList.contains('product-image')) {
         const productId = parseInt(e.target.getAttribute('data-product-id'));
         const clickedIndex = parseInt(e.target.getAttribute('data-index'));
-        
         const product = catalog.find(p => p.id === productId);
+        
         if (product) {
+            // Buscamos los elementos dinámicamente justo en el momento del toque
             const modal = document.getElementById('image-modal');
-            if (!modal || !modalTrack) return; 
+            const modalTrack = document.getElementById('modal-track');
+            const modalDotsContainer = document.getElementById('modal-dots-container');
             
-            // Inyectamos las fotos en el visor
+            if (!modal || !modalTrack || !modalDotsContainer) return;
+            
+            // Inyectar fotos
             modalTrack.innerHTML = product.images.map(img => `
                 <div class="modal-slide">
                     <img src="${img}" alt="Producto ampliado">
                 </div>
             `).join('');
 
-            // Inyectamos los puntitos (solo si hay más de 1 foto)
-            if (modalDotsContainer) {
-                if (product.images.length > 1) {
-                    modalDotsContainer.innerHTML = product.images.map((_, index) => `
-                        <div class="dot ${index === clickedIndex ? 'active' : ''}"></div>
-                    `).join('');
-                } else {
-                    modalDotsContainer.innerHTML = ''; // Lo dejamos vacío si solo hay 1 foto
-                }
+            // Inyectar puntitos (solo si el producto tiene más de 1 foto)
+            if (product.images.length > 1) {
+                modalDotsContainer.innerHTML = product.images.map((_, index) => `
+                    <div class="dot ${index === clickedIndex ? 'active' : ''}"></div>
+                `).join('');
+            } else {
+                modalDotsContainer.innerHTML = ''; // Vaciar si solo hay 1 foto
             }
 
-            // Mostramos el visor y bloqueamos la web de fondo
+            // Mostrar modal
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
 
-            // Movemos el carrusel a la foto exacta que hemos tocado
+            // Mover el carrusel a la foto que se tocó
             setTimeout(() => {
                 modalTrack.scrollLeft = modalTrack.clientWidth * clickedIndex;
             }, 10);
         }
     }
 
-    // 2. Si tocamos la "X" para cerrar
-    if (e.target.id === 'close-modal') {
+    // 2. Cerrar visor al tocar la X
+    if (e.target.id === 'close-modal' || e.target.closest('#close-modal')) {
         const modal = document.getElementById('image-modal');
         if (modal) {
             modal.classList.add('hidden');
@@ -256,19 +258,19 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// 3. Sincronizar los puntitos al deslizar el dedo
-if (modalTrack) {
-    modalTrack.addEventListener('scroll', () => {
+// 3. Sincronizar puntitos al deslizar (se captura en tiempo real)
+document.addEventListener('scroll', (e) => {
+    if (e.target && e.target.id === 'modal-track') {
+        const modalTrack = e.target;
+        const modalDotsContainer = document.getElementById('modal-dots-container');
         if (!modalDotsContainer) return;
-        const dots = modalDotsContainer.querySelectorAll('.dot');
-        if (dots.length === 0) return; // Si no hay puntitos, no hacemos nada
-
-        // Calculamos qué foto está en el centro de la pantalla
-        const scrollIndex = Math.round(modalTrack.scrollLeft / modalTrack.clientWidth);
         
-        // Iluminamos el puntito correspondiente
+        const dots = modalDotsContainer.querySelectorAll('.dot');
+        if (dots.length === 0) return;
+        
+        const scrollIndex = Math.round(modalTrack.scrollLeft / modalTrack.clientWidth);
         dots.forEach((dot, index) => {
             dot.classList.toggle('active', index === scrollIndex);
         });
-    }, { passive: true }); // passive: true optimiza el rendimiento táctil en iOS
-}
+    }
+}, true); // El "true" es obligatorio para detectar el deslizamiento en iOS
