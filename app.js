@@ -1,10 +1,21 @@
 // Base de datos de productos. 
 const catalog = [
-   
+   {
+        id: 1,
+        category: 'collares',
+        name: 'Mix & Match',
+        images: [
+            'Mix & Match.JPG',
+            'Mix & Match 1.JPG',
+            'Mix & Match 2.JPG',
+            'Mix & Match 3.JPG',
+            'Mix & Match 4.JPG',
+        ]
+    },
     {
         id: 2,
         category: 'collares',
-        name: 'Chocker NaN',
+        name: 'Chocker',
         images: [
             'Chocker2.JPG',
             'Chocker.JPG'
@@ -13,7 +24,7 @@ const catalog = [
     {
         id: 3,
         category: 'collares',
-        name: 'NaN Terreta',
+        name: 'Terreta',
         images: [
             'Terreta.JPG'
         ]
@@ -21,7 +32,7 @@ const catalog = [
     {
         id: 3,
         category: 'collares',
-        name: 'NaN Amalfi',
+        name: 'Amalfi',
         images: [
             'Amalfi.JPG'
         ]
@@ -29,7 +40,7 @@ const catalog = [
     {
         id: 4,
         category: 'collares',
-        name: 'NaN Capri',
+        name: 'Capri',
         images: [
             'Capri.JPG'
         ]
@@ -37,9 +48,33 @@ const catalog = [
     {
         id: 5,
         category: 'collares',
-        name: 'NaN Mango',
+        name: 'Mango',
         images: [
             'Mango.JPG'
+        ]
+    },
+   {
+        id: 6,
+        category: 'collares',
+        name: 'Lucca',
+        images: [
+            'Lucca.JPG'
+        ]
+    },
+   {
+        id: 7,
+        category: 'collares',
+        name: 'Roma',
+        images: [
+            'Roma.JPG'
+        ]
+    },
+   {
+        id: 8,
+        category: 'collares',
+        name: 'Sicilia',
+        images: [
+            'Sicilia.JPG'
         ]
     },
     {
