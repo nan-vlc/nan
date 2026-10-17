@@ -201,6 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- LÓGICA DEL VISOR A PANTALLA COMPLETA ---
+const modalTrack = document.getElementById('modal-track');
+const modalDotsContainer = document.getElementById('modal-dots-container');
+
 document.addEventListener('click', (e) => {
     // 1. Si tocamos una foto del catálogo
     if (e.target.classList.contains('product-image')) {
@@ -210,22 +213,31 @@ document.addEventListener('click', (e) => {
         const product = catalog.find(p => p.id === productId);
         if (product) {
             const modal = document.getElementById('image-modal');
-            const modalTrack = document.getElementById('modal-track');
+            if (!modal || !modalTrack) return; 
             
-            if (!modal || !modalTrack) return; // Evita errores si falta el HTML
-            
-            // Inyectamos las fotos
+            // Inyectamos las fotos en el visor
             modalTrack.innerHTML = product.images.map(img => `
                 <div class="modal-slide">
                     <img src="${img}" alt="Producto ampliado">
                 </div>
             `).join('');
 
+            // Inyectamos los puntitos (solo si hay más de 1 foto)
+            if (modalDotsContainer) {
+                if (product.images.length > 1) {
+                    modalDotsContainer.innerHTML = product.images.map((_, index) => `
+                        <div class="dot ${index === clickedIndex ? 'active' : ''}"></div>
+                    `).join('');
+                } else {
+                    modalDotsContainer.innerHTML = ''; // Lo dejamos vacío si solo hay 1 foto
+                }
+            }
+
             // Mostramos el visor y bloqueamos la web de fondo
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
-           
+
             // Movemos el carrusel a la foto exacta que hemos tocado
             setTimeout(() => {
                 modalTrack.scrollLeft = modalTrack.clientWidth * clickedIndex;
@@ -244,4 +256,19 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// 3. Sincronizar los puntitos al deslizar el dedo
+if (modalTrack) {
+    modalTrack.addEventListener('scroll', () => {
+        if (!modalDotsContainer) return;
+        const dots = modalDotsContainer.querySelectorAll('.dot');
+        if (dots.length === 0) return; // Si no hay puntitos, no hacemos nada
 
+        // Calculamos qué foto está en el centro de la pantalla
+        const scrollIndex = Math.round(modalTrack.scrollLeft / modalTrack.clientWidth);
+        
+        // Iluminamos el puntito correspondiente
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === scrollIndex);
+        });
+    }, { passive: true }); // passive: true optimiza el rendimiento táctil en iOS
+}
