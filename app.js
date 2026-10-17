@@ -224,7 +224,8 @@ document.addEventListener('click', (e) => {
             // Mostramos el visor y bloqueamos la web de fondo
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-
+            document.documentElement.style.overflow = 'hidden';
+           
             // Movemos el carrusel a la foto exacta que hemos tocado
             setTimeout(() => {
                 modalTrack.scrollLeft = modalTrack.clientWidth * clickedIndex;
@@ -238,6 +239,7 @@ document.addEventListener('click', (e) => {
         if (modal) {
             modal.classList.add('hidden');
             document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
         }
     }
 });
