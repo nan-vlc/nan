@@ -77,6 +77,16 @@ const catalog = [
             'Sicilia.JPG'
         ]
     },
+   {
+        id: 9,
+        category: 'collares',
+        name: 'Loop',
+        images: [
+            'Lacito.JPG'
+            'Lacito 2.JPG'
+            'Lacito 3.JPG'
+        ]
+    },
     {
         id: 101,
         category: 'colgadores',
@@ -91,6 +101,10 @@ const catalog = [
         name: 'NaN Bolita',
         images: [
             'Bolita.JPG'
+            'Bolita 2.JPG'
+            'Bolita 3.JPG'
+            'Bolita 4.JPG'
+            'Bolita 5.JPG'
         ]
     },
    {
