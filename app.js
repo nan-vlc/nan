@@ -134,9 +134,9 @@ function renderProducts(category) {
         card.className = 'product-card';
         
         // 1. Generamos los slides (fotos)
-        const slidesHTML = product.images.map(img => `
+        const slidesHTML = product.images.map((img, index) => `
             <div class="carousel-slide">
-                <img src="${img}" alt="${product.name}" class="product-image" loading="lazy">
+                <img src="${img}" alt="${product.name}" class="product-image" loading="lazy" data-product-id="${product.id}" data-index="${index}">
             </div>
         `).join('');
 
@@ -198,4 +198,47 @@ segmentButtons.forEach(button => {
 // Renderizado inicial
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts(currentCategory);
+});
+
+// --- LÓGICA DEL VISOR A PANTALLA COMPLETA ---
+const modal = document.getElementById('image-modal');
+const modalTrack = document.getElementById('modal-track');
+const closeModal = document.getElementById('close-modal');
+
+// Escuchar clics en las imágenes
+gridContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('product-image')) {
+        const productId = parseInt(e.target.getAttribute('data-product-id'));
+        const clickedIndex = parseInt(e.target.getAttribute('data-index'));
+        
+        const product = catalog.find(p => p.id === productId);
+        if (product) {
+            openModal(product.images, clickedIndex);
+        }
+    }
+});
+
+// Abrir el visor con TODAS las fotos de ese producto
+function openModal(images, startIndex) {
+    // Inyectar todas las fotos en grande para poder deslizar
+    modalTrack.innerHTML = images.map(img => `
+        <div class="modal-slide">
+            <img src="${img}" alt="Producto ampliado">
+        </div>
+    `).join('');
+
+    // Mostrar modal y bloquear el scroll de la web de fondo
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+
+    // Desplazar automáticamente hasta la foto que se tocó
+    setTimeout(() => {
+        modalTrack.scrollLeft = modalTrack.clientWidth * startIndex;
+    }, 10);
+}
+
+// Cerrar el visor
+closeModal.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    document.body.style.overflow = ''; // Restaurar scroll web
 });
